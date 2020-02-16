@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Messaging Tryout</title>
+
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.24.0/css/patternfly.min.css">
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.24.0/css/patternfly-additions.min.css">
+</head>
+<body>
+
+<div class="container">
+
+    <h1>Message To Kafka</h1>
+
+    <form id="orderForm" class="form-horizontal">
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="requestingSystem">Request System</label>
+            <div class="col-md-6">
+                <input type="text" id="requestingSystem" class="form-control">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="messageString">Message String</label>
+            <div class="col-md-6">
+                <input type="text" id="messageString" class="form-control">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-10 col-md-offset-2">
+                <button id="order-button" type="submit" class="btn btn-primary">Submit message</button>
+            </div>
+        </div>
+    </form>
+
+</div>
+
+<div class="container" id="order-result-message"></div>
+
+<div class="container">
+
+    <h1>Queue</h1>
+
+    <table class="table table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th>System</th>
+            <th>Message String</th>
+            <th>State</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+
+</div>
+
+
+
+
+
+</body>
