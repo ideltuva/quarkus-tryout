@@ -57,9 +57,51 @@
     </table>
 
 </div>
-
-
-
-
-
 </body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.24.0/js/patternfly.min.js"></script>
+
+
+
+<script>
+    $("#orderForm").submit(function(event){
+        const message = {
+            requestingSystem: $("#requestingSystem").val(),
+            message: $("#messageString").val()
+        };
+
+        console.log("Requesting system = " + message.requestingSystem);
+        event.preventDefault();
+    });
+
+    $(function () {
+        const source = new EventSource("/queue");
+        source.onmessage = function(e) {
+            if (e.data === "{}") {
+                return;
+            }
+            console.log(e);
+            const messageQueue = JSON.parse(e.data);
+            if(messageQueue.messageStatus==="IN_PROCESS")
+                $("tbody").prepend(line(messageQueue));
+            if(beverage.messageStatus==="READY")
+                $("#"+messageQueue.orderId).replaceWith(line(MessageQueue));
+
+        };
+    });
+
+    function line(messageQueue) {
+        const id = messageQueue.id;
+        const message = messageQueue.message;
+        const messageStatus = messageQueue.messageStatus;
+
+        return "<tr id='" + id + "'>" +
+            "<td>" + message + "</td>" +
+            "<td>" + messageStatus + "</td>";
+    }
+
+
+</script>
+</html>
