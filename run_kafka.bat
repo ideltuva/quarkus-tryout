@@ -1,1 +1,1 @@
-C:\workspace\kafka\kafka_2.12-2.3.0\bin\windows\kafka-server-start.bat C:\workspace\kafka\kafka_2.12-2.3.0\config\server.properties
+C:\workspace\kafka\kafka_2.12-2.3.0\bin\windows\kafka-server-start.bat C:\workspace\kafka\kafka_2.12-2.3.0\config\server.properties --override listeners=PLAINTEXT://0.0.0.0:9092 --override advertised.listeners=PLAINTEXT://localhost:9092

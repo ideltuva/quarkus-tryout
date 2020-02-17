@@ -2,6 +2,7 @@ import api.quarkus.model.Message;
 import api.quarkus.model.MessageQueue;
 import io.smallrye.reactive.messaging.annotations.Channel;
 import io.smallrye.reactive.messaging.annotations.Emitter;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;

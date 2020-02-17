@@ -5,6 +5,7 @@ import io.quarkus.runtime.annotations.RegisterForReflection;
 
 @RegisterForReflection
 public class MessageQueue {
+    String messageId;
     String requestingSystem;
     String message;
     State messageStatus;
@@ -52,6 +53,7 @@ public class MessageQueue {
     }
 
     public MessageQueue(Message message, State state) {
+        this.messageId = message.getId();
         this.message = message.getMessage();
         this.requestingSystem = message.getRequestingSystem();
         this.messageStatus = state;

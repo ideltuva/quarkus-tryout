@@ -6,9 +6,9 @@ import io.quarkus.runtime.annotations.RegisterForReflection;
 @RegisterForReflection
 public class MessageQueue {
     String requestingSystem;
-
     String message;
     State messageStatus;
+    String messageId;
     public enum State {
         IN_QUEUE,
         IN_PROCESS,
@@ -45,6 +45,7 @@ public class MessageQueue {
         this.message = message.getMessage();
         this.requestingSystem = message.getRequestingSystem();
         this.messageStatus = state;
+        this.messageId = message.getId();
     }
 
 

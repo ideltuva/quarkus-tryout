@@ -63,7 +63,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.24.0/js/patternfly.min.js"></script>
 
-
+`
 
 <script>
     $("#orderForm").submit(function(event){
@@ -74,7 +74,24 @@
 
         console.log("Requesting system = " + message.requestingSystem);
         event.preventDefault();
-    });
+
+        const post_url = "/" + "messaging";
+        const request_method = "POST"; //get form GET/POST method
+
+        $.ajax({
+            url : post_url,
+            type: request_method,
+            data : JSON.stringify(message),
+            contentType: 'application/json',
+            cache: false
+        }).done(function(response){
+        }).fail(function(err) {
+            $("#order-result-message").append("<div class='alert alert-danger alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span class='pficon pficon-close'></span></button><span class='pficon pficon-error-circle-o'></span><strong>Error</strong>" + err.responseText + "</div>");
+            $('tbody tr:last').remove();
+            $("#order-button").removeClass("disabled").removeAttr("disabled");
+            console.error(err);
+        });
+	});
 
     $(function () {
         const source = new EventSource("/queue");
@@ -86,22 +103,22 @@
             const messageQueue = JSON.parse(e.data);
             if(messageQueue.messageStatus==="IN_PROCESS")
                 $("tbody").prepend(line(messageQueue));
-            if(beverage.messageStatus==="READY")
-                $("#"+messageQueue.orderId).replaceWith(line(MessageQueue));
+            if(messageQueue.messageStatus==="READY")
+                $("#"+messageQueue.messageId).replaceWith(line(messageQueue));
 
         };
     });
 
     function line(messageQueue) {
-        const id = messageQueue.id;
+        const id = messageQueue.messageId;
+        const requestingSystem = messageQueue.requestingSystem;
         const message = messageQueue.message;
         const messageStatus = messageQueue.messageStatus;
 
         return "<tr id='" + id + "'>" +
+            "<td>" + requestingSystem + "</td>" +
             "<td>" + message + "</td>" +
-            "<td>" + messageStatus + "</td>";
+            "<td>" + messageStatus + "</td></tr>";
     }
-
-
 </script>
 </html>
