@@ -20,7 +20,7 @@ public class KafkaMessage {
     private ExecutorService queue = Executors.newSingleThreadExecutor();
 
     @Incoming("messages")
-    @Outgoing("message-queue")
+    @Outgoing("messagequeue")
     public CompletionStage<MessageQueue> process(Message message) {
         return CompletableFuture.supplyAsync(() -> {
             MessageQueue messageQueue = prepare(message);
