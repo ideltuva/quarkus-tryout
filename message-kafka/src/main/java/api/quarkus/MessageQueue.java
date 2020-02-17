@@ -9,6 +9,7 @@ public class MessageQueue {
     String message;
     State messageStatus;
     String messageId;
+
     public enum State {
         IN_QUEUE,
         IN_PROCESS,

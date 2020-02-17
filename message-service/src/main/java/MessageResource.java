@@ -3,6 +3,7 @@ import api.quarkus.model.MessageQueue;
 import io.smallrye.reactive.messaging.annotations.Channel;
 import io.smallrye.reactive.messaging.annotations.Emitter;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -12,9 +13,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.util.UUID;
 
+
+@RestController
 @Path("/")
-@Consumes(MediaType.APPLICATION_JSON)
-@Produces(MediaType.APPLICATION_JSON)
 public class MessageResource {
 
 
@@ -23,11 +24,11 @@ public class MessageResource {
     Emitter<Message> messages;
 
     @Inject
-    @Channel("messagequeue")
+    @Channel("queue")
     Emitter<MessageQueue> states;
 
     @POST
-    @Path("/messaging")
+    @PostMapping("/messaging")
     public Message messaging(Message message) {
         message.setId(getId());
         states.send(MessageQueue.queued(message));
